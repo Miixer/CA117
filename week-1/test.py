@@ -1,10 +1,19 @@
 import sys
 
-es_endings = ["ch", "sh", "x", "s", "z"]
-import sys
+def diamond(n):
+    d = ""
+    i = 0
+    while i < n:
+        d = d + ((n - i - 1) * " ") + ("* " * i) + "*" + "\n"
+        i = i + 1
+    i = 0
+    while i < n - 1:
+        d = d + (" " * (i + 1)) + ("* " * (n - i - 2)) + "*" + "\n"
+        i = i + 1
+    return d
 
-s = "peach"
-es_endings = ["ch", "sh", "x", "s", "z"]
+def main():
+    print(diamond(int(sys.argv[1])))
 
-if s in es_endings:
-    print("hello")
+if __name__ == '__main__':
+    main()
