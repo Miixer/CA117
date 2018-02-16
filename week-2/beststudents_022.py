@@ -1,35 +1,39 @@
 import sys
 
-def file(s):
-    with open(s, "r") as f:
-        return [c.strip().split() for c in f]
+def grades(marks, names):
+    c = []
+    highest = 0
+    i = 0
+    while i < len(marks):
+        if int(marks[i]) > int(highest):
+            highest = marks[i]
+        i = i + 1
+    i = 0
+    while i < len(marks):
+        if marks[i] == highest:
+            c.append(names[i].strip())
+        i = i + 1
+    best = ", ".join(c)
 
-def checkmark(n):
-    return int(n)
+    print("Best student(s): {}".format(best))
+    print("Best mark: {}".format(highest))
 
 def main():
     s = sys.argv[1]
+    marks = []
+    names = []
     try:
-        words = file(s)
-        students = (sorted(words))
-        bestmark = max(students)[0]
-        for n in words:
-            try:
-                marks = n[:][0]
-                checkmark(marks)
-            except ValueError:
-                print("Invalid mark {} encountered. Skipping.".format(marks))
-        for n in students:
-            if 
-            print(n)
-
+        with open(s, "r") as f:
+            for line in f:
+                try:
+                    if line[:2].isdigit():
+                        marks.append(line[:2])
+                except ValueError:
+                    print('Invalid mark {} encountered. Skipping.'.format(line[:2]))
+                names.append(line[2:])
+            grades(marks, names)
     except FileNotFoundError:
-        print("The file {} could not be opened.".format(s))
-
-    finally:
-        print("Best student(s): {}, {}".format("ok","ok"))
-        print("Best mark: {}".format(bestmark))
-
+        print('The file {} could not be opened'.format(s))
 
 if __name__ == '__main__':
     main()
