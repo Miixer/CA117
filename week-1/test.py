@@ -18,5 +18,9 @@ def main():
         team_name = line[1:-8]
         print("{:>3s} {:<{}s} {:s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s})".format(line[0], " ".join(team_name), longest, line[-8], line[-7], line[-6], line[-5], line[-4], line[-3], line[-2], line[-1]))
 
+def main():
+    hole = [n for n in range(1,19)]
+    print(hole[17])
+
 if __name__ == '__main__':
     main()
