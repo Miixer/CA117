@@ -1,41 +1,23 @@
 import sys
 
-def name(s):
-    n = " ".join(s[1:-8])
-    return n
-
 
 def main():
     
     lines = []
     longest = 0
     for line in sys.stdin:
-        line = line.split()
+        line = line.strip()
         lines.append(line)
-        n = name(line)
-        if len(n) > longest:
-            longest = len(n)
+        name = " ".join(line.split()[1:-8])
+        if longest < len(name):
+            longest = len(name)
 
-    h1 = "POS"
-    h2 = "CLUB"
-    h3 = "P"
-    h4 = "W"
-    h5 = "D"
-    h6 = "L"
-    h7 = "GF"
-    h8 = "GA"
-    h9 = "GD"
-    h10 = "PTS"
-
-    print('{:>s} {:<{}s} {:>2s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s}'.format(h1, h2, len(n), h3, h4, h5, h6, h7, h8, h9, h10))
+    print('{:>s} {:<{}s} {:>2s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s}'.format("POS", "CLUB", longest, "P", "W", "D", "L", "GF", "GA", "GD", "PTS"))
     
-    print(lines)
-
-    
-    
-       
-    
-
+    for line in lines:
+        line = line.split()
+        team_name = " ".join(line[1:-8])
+        print("{:>3s} {:<{}s} {:s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s} {:>3s}".format(line[0], team_name, longest, line[-8], line[-7], line[-6], line[-5], line[-4], line[-3], line[-2], line[-1]))
 
 if __name__ == '__main__':
     main()
