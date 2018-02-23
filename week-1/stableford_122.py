@@ -1,19 +1,21 @@
 import sys
 
-#points = lambda par: par <= 2 and -par + 2 or 0
-#hole_score = lambda score, rank, handicap, par: points(score - ((handicap // 18) + int(handicap % 18 >= rank)) - par)
-
 def points(par):
-   return par <= 2 and -par + 2 or 0
+   p = par <= 2 and - par + 2 or 0
+   return p
 
-def hole_score(score, rank, handicap, par):
-   return points(score - ((handicap // 18) + int(handicap % 18 >= rank)) - par)
+def handi(rank, handicap):
+   return int(handicap // 18 + (handicap % 18 >= rank))
+
+def holescore(score, rank, handicap, par):
+   point = points(score - handi(rank, handicap) - par)
+   return point
  
 def main(): 
    pars = [int(n) for n in input().split()]
    index = [int(n) for n in input().split()]
    players = [p.split() for p in sys.stdin] 
-   ranked = [[], []]
+   rank = [[], []]
    longest_name = -1
    for p in players:
       name = " ".join(p[:-19])
@@ -21,14 +23,15 @@ def main():
       total = 0
       for i, score in enumerate(p[-18:]):
          if score != "X" and score.isdigit():
-            total += hole_score(int(score), index[i], handicap, pars[i])
+            total += holescore(int(score), index[i], handicap, pars[i])
          elif not score.isdigit() and score != "X":
             total = "Disqualified"
             break
-      ranked[total == "Disqualified"].append((name, total))
+
+      rank[total == "Disqualified"].append((name, total))
       longest_name = max(longest_name, len(name))
-   ranked_list = sorted(ranked[0], key=lambda a: a[1], reverse = True) + ranked[1]
-   for item in ranked_list:
+   ranklist = sorted(rank[0], key=lambda a: a[1], reverse = True) + rank[1]
+   for item in ranklist:
       print("{:>{}} : {:2}".format(item[0], longest_name, item[1]))
 
 if __name__ == '__main__':
