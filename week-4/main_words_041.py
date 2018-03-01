@@ -14,12 +14,9 @@ def main():
                 count[w] = 1
 
     unique = sorted(set(unique))
-    for c in unique:
-        ans = c, count[c]
-        if len(c) > 3 and count[c] >= 3:
-            ans = c, count[c]
-            print(max(count[c]))
-            #print("{:>} : {:>}".format(c, count[c]))
+    ans = [w for w in unique if len(w) > 3 and count[w] >= 3]
+    for c in ans:
+        print("{:>{}s} : {:>2n}".format(c, len(max(ans, key=len)), count[c]))
 
 if __name__ == '__main__':
     main()
