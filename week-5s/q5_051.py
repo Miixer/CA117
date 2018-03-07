@@ -20,9 +20,9 @@ def main():
 			continue
 		times = times.replace(":", "")
 		d[names] = times
-	x = sorted((d.values()))
+	x = sorted((d.values()), key=int)
 	for k,v in d.items():
-		print(k)
+		val = print(x)
 	#fastestime = print(min(x, key=int))
 	
 

@@ -17,7 +17,7 @@ def main():
    n = [int(s.strip()) for s in sys.stdin]
    print("Mean: {:.1f}".format(mean(n)))
    print("Mode: {:.1f}".format(mode(n)))
-   print("Median {:.1f}".format(median(n)))
+   print("Median: {:.1f}".format(median(n)))
    
 if __name__ == '__main__':
    main()
