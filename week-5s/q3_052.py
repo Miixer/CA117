@@ -1,23 +1,14 @@
-import sys
-
 def build_dictionary(filename):
-   info = []
    d = {}
-   for line in filename:
-      info.append(line.strip())
-      print(info)
-      word, amount = line.strip().split()
-      x = {word: amount for word, amount in line}
-   #print(x)
-   # for line in filename:
-   #    line = line.strip().split()
-   #    print(line)
-   #    d[line[0]] = line[1]
-   # print(d)
+   with open(filename, "r") as f:
+      for line in f:
+         line = line.strip().split()
+         d[line[0]] = line[1]
+   return d
 
-def main():
-   build_dictionary(sys.stdin)
-
-
-if __name__ == '__main__':
-   main()
+def extract_range(d, low, high):
+   new = {}
+   for k,v in d.items():
+      if low <= int(v) <= high:
+         new[k] = v
+   return new

@@ -1,32 +1,20 @@
 import sys
 
-def dic(names, times):
-	d = {}
-	d[names] = times
-	return d
+def times(string):
+	m, s = string.split(":")
+	return int(m)
 
 def main():
 	d = {}
-	nam = []
-	tim = []
-	info = [line.strip() for line in sys.stdin]
-	for n in info:
-		names, times = n.split()[0], n.split()[1:]
-		nam.append(names)
+	for line in sys.stdin:
 		try:
-			times = min(sorted(times))
-			tim.append(times)
-		except:
+			info = line.strip().split()
+			d[info[0]] = min(info[1:], key=times)
+		except ValueError:
 			continue
-		times = times.replace(":", "")
-		d[names] = times
-	x = sorted((d.values()), key=int)
-	for k,v in d.items():
-		val = print(x)
-	#fastestime = print(min(x, key=int))
-	
 
-
+	winner = min(d.items(), key=lambda x: times(x[1]))
+	print("{} : {}".format(winner[0], winner[1]))
 
 if __name__ == '__main__':
 	main()
