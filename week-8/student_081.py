@@ -40,30 +40,26 @@ class Student(object):
 
     def add_mark(self, code, mark):
       self.marks[code] = int(mark)
+
     def precision_mark(self):
-      pmark = 0
-      tc = 0
-      for c in self.marks:
-        tc += int(self.mods[c][2])
-        pmark += int(self.mods[c][2]) * (self.marks[c] / 100)
-      return (pmark / tc) * 100
+      weight = sum([self.mods[c].ects * self.marks[c] for c in self.mods])
+      mark = sum(self.mods[c].ects for c in self.mods)
+      return weight / mark
+    
     def passed(self):
       failed = [c for c in self.marks if int(self.marks[c]) < 40]
       return len(failed) == 0
+
     def passed_by_compensation(self):
       if self.precision_mark() < 45:
         return False
-      failed = [c for c in self.marks if int(self.marks[code]) < 40]
-      cf = 0
-      tc = 0
-      for c in self.mods:
-        tc += int(self.mods[code][2])
-        if code in failed:
-          cf += int(self.mods[code][2])
-      if (cf * 6) > tc:
+      cred = sum([self.mods[c].ects for c in self.mods])
+      credf = sum([self.mods[c].ects for c in self.mods if self.marks[c] < 40])
+      if credf/cred > 1/6:
         return False
-      tfail = [c for c in self.marks if int(self.marks[code]) < 35]
-      return not len(tfail)
+      if any([self.marks[c] < 35 for c in self.mods]):
+        return False
+      return True
 
 def main():
     s1 = Student(15334499, 'Jones', 'Zoe')
@@ -76,7 +72,32 @@ def main():
     s1.add_mark('CA170', 74)
     s1.add_mark('CA172', 90)
     s1.add_mark('MS121', 50)
+    
+    s2 = Student(15667755, "Brent", "Tom")
+    s2.add_mark('CA103', 55)
+    s2.add_mark('CA106', 35)
+    s2.add_mark('CA115', 70)
+    s2.add_mark('CA116', 64)
+    s2.add_mark('CA117', 66)
+    s2.add_mark('CA169', 50)
+    s2.add_mark('CA170', 55)
+    s2.add_mark('CA172', 60)
+    s2.add_mark('MS121', 35)
+
+    s3 = Student(15112277, 'Brody', 'Joe')
+    s3.add_mark('CA103', 35)
+    s3.add_mark('CA106', 35)
+    s3.add_mark('CA115', 60)
+    s3.add_mark('CA116', 60)
+    s3.add_mark('CA117', 60)
+    s3.add_mark('CA169', 60)
+    s3.add_mark('CA170', 60)
+    s3.add_mark('CA172', 60)
+    s3.add_mark('MS121', 60)
+
     print(s1)
+    print(s2)
+    print(s3)
 
 if __name__ == '__main__':
   main()
